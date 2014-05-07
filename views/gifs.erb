@@ -1,0 +1,18 @@
+<h2><%= @emotion %></h2>
+
+<p>
+  Click on an image to copy the URL to your keyboard.
+</p>
+
+<p>
+  <a href="/">Home</a>
+</p>
+
+<div class="floating-images">
+  <% @imgs.each do |img, path| %>
+    <div class="image">
+      <img src="<%= path %>">
+    </div>
+  <% end %>
+</div>
+

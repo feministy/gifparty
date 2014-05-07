@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Hello, Gif.</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="custom.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+  </head>
+
+  <body>
+    <div id="header">
+      <h1>Hello, gif.</h1>
+    </div>
+    <div id="container">
+      <div id="nav">
+        <ul>
+          <li>Emotion:</li>
+          <li><a href="angry">Angry</a></li>
+          <li><a href="wtf">WTF?</a></li>
+        </ul>
+      </div>
+      <div id="body">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>
