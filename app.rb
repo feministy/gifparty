@@ -1,8 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'aws-sdk'
-require 'slim'
-require 'debugger'
+require 'debugger' if development?
 
 AWS.config({
   access_key_id: ENV["AWS_ACCESS_KEY_ID"],
