@@ -85,6 +85,12 @@ get '/happy' do
   erb :gifs
 end
 
+get '/sad' do
+  @imgs = images_for('sad/')
+  @emotion = ":("
+  erb :gifs
+end
+
 get '/victory' do
   @imgs = images_for('victory/')
   @emotion = "I win."
