@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/json'
+require 'sinatra/cross_origin'
 require 'aws-sdk'
 require 'debugger' if development?
 
@@ -8,6 +9,10 @@ AWS.config({
   access_key_id: ENV["AWS_ACCESS_KEY_ID"],
   secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
 })
+
+configure do
+  enable :cross_origin
+end
 
 before do
   @url_prefix = 'https://s3-us-west-2.amazonaws.com/gifgifgiffy/'
