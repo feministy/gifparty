@@ -33,7 +33,7 @@ end
 
 get '/api/angry.json' do
   imgs = json_for('angry/')
-  json images: imgs
+  json imgs
 end
 
 get '/api/annoyed.json' do
