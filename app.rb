@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
+require 'sinatra/json'
 require 'aws-sdk'
 require 'debugger' if development?
 
@@ -8,109 +9,89 @@ AWS.config({
   secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"]
 })
 
-
 before do
   @url_prefix = 'https://s3-us-west-2.amazonaws.com/gifgifgiffy/'
 end
 
 helpers do
-  def images_for(prefix)
+  def json_for(prefix)
     s3 = AWS::S3.new
     bucket = s3.buckets['gifgifgiffy']
     images = bucket.objects.with_prefix(prefix).map(&:key)
-    hash = {}
-    images.each do |img|
-      i = img.gsub(".gif", "").split("/")[1]
-      hash[i] = "#{@url_prefix}#{img}"
+    result = images.map do |img|
+      img.gsub(".gif", "").split("/")[1]
+      img = "#{@url_prefix}#{img}"
     end
-    hash
+    result
   end
 end
 
-get '/' do
-  erb :index
+get '/api/angry.json' do
+  imgs = json_for('angry/')
+  json images: imgs
 end
 
-get '/angry' do
-  @imgs = images_for('angry/')
-  @emotion = "Rawr! Angry!"
-  erb :gifs
+get '/api/annoyed.json' do
+  imgs = json_for('annoyed/')
+  json images: imgs
 end
 
-get '/annoyed' do
-  @imgs = images_for('annoyed/')
-  @emotion = "Srsly. So annoyed."
-  erb :gifs
+get '/api/comforting.json' do
+  imgs = json_for('comforting/')
+  json images: imgs
 end
 
-get '/comforting' do
-  @imgs = images_for('comforting/')
-  @emotion = "No 'fraid, lil soft soft."
-  erb :gifs
+get '/api/cute.json' do
+  imgs = json_for('cute/')
+  json images: imgs
 end
 
-get '/cute' do
-  @imgs = images_for('cute/')
-  @emotion = "SO PRECIOUS!"
-  erb :gifs
+get '/api/dancing.json' do
+  imgs = json_for('dancing/')
+  json images: imgs
 end
 
-get '/dancing' do
-  @imgs = images_for('dancing/')
-  @emotion = "My milkshake brings all the boys to the yard."
-  erb :gifs
+get '/api/evil.json' do
+  imgs = json_for('evil/')
+  json images: imgs
 end
 
-get '/evil' do
-  @imgs = images_for('evil/')
-  @emotion = "Cackle."
-  erb :gifs
+get '/api/fuck_you.json' do
+  imgs = json_for('fuck_you/')
+  json images: imgs
 end
 
-get '/fuck_you' do
-  @imgs = images_for('fuck_you/')
-  @emotion = "FUCK YOU MOTHER FUCKER."
-  erb :gifs
+get '/api/funny.json' do
+  imgs = json_for('funny/')
+  json images: imgs
 end
 
-get '/funny' do
-  @imgs = images_for('funny/')
-  @emotion = "Giggles!"
-  erb :gifs
+get '/api/happy.json' do
+  imgs = json_for('happy/')
+  json images: imgs
 end
 
-get '/happy' do
-  @imgs = images_for('happy/')
-  @emotion = "Eeeeeeeeeeee!"
-  erb :gifs
+get '/api/nope.json' do
+  imgs = json_for('nope/')
+  json images: imgs
 end
 
-get '/nope' do
-  @imgs = images_for('nope/')
-  @emotion = "nopenopenope"
-  erb :gifs
+get '/api/sad.json' do
+  imgs = json_for('sad/')
+  json images: imgs
 end
 
-get '/sad' do
-  @imgs = images_for('sad/')
-  @emotion = ":("
-  erb :gifs
+get '/api/victory.json' do
+  imgs = json_for('victory/')
+  json images: imgs
 end
 
-get '/victory' do
-  @imgs = images_for('victory/')
-  @emotion = "I win."
-  erb :gifs
+get '/api/whatever.json' do
+  imgs = json_for('whatever/')
+  json images: imgs
 end
 
-get '/whatever' do
-  @imgs = images_for('whatever/')
-  @emotion = "Whatever whatever."
-  erb :gifs
-end
-
-get '/wtf' do
-  @imgs = images_for('wtf/')
-  @emotion = "What. The. FUCK."
-  erb :gifs
+get '/api/wtf.json' do
+  imgs = json_for('wtf/')
+  json images: imgs
 end
