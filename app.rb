@@ -81,6 +81,12 @@ get '/api/nope.json' do
   json imgs
 end
 
+get '/api/punz.json' do
+  imgs = json_for('punz/')
+  json imgs
+end
+
+
 get '/api/sad.json' do
   imgs = json_for('sad/')
   json imgs
